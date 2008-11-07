@@ -1,0 +1,9 @@
+#!/bin/sh
+echo Registering driver.
+sudo modprobe videodev
+echo Starting screencast.
+sudo insmod ./v4l_virtual.ko
+trap "echo Screencast finished." 2
+./source_selector $1 $2 $3 # width height frame_rate
+echo Unregistering driver.
+sudo rmmod v4l_virtual
